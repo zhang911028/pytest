@@ -1,0 +1,102 @@
+Index: testtupian.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/testtupian.py b/testtupian.py
+new file mode 100644
+--- /dev/null	(date 1640176736578)
++++ b/testtupian.py	(date 1640176736578)
+@@ -0,0 +1,92 @@
++import requests
++from bs4 import BeautifulSoup
++import asyncio
++import aiohttp
++import aiofiles
++
++
++def get_url(url):
++
++    resp = requests.get(url+'/meinvtupian')
++    resp.encoding = "utf-8"
++    pag1 = resp.text
++    main_pag = BeautifulSoup(pag1, 'html.parser')
++    alst = main_pag.find("div", attrs={"class": "TypeList"}).find_all(
++        "a", attrs={"class": "TypeBigPics"})
++
++    return alst
++
++
++async def downpic(url):
++    alst = get_url(url)
++    n = 1
++    tasks = []
++    async with aiohttp.ClientSession() as session:
++        for i in alst:
++            href = f'{url}{i.get("href")}'
++            async with session.get(href) as resp:
++                pag2 = await resp.text()
++
++            child_pag = BeautifulSoup(pag2, 'html.parser')
++
++            child_pic = child_pag.find(
++                "div", attrs={"class": "NewPages"}).find_all("a")
++            for i in child_pic:
++
++                if i.text != "尾页":
++                    continue
++                else:
++                    s = i.get("href")
++            s = s.split(".")
++            s = s[0].split("_")[1]
++            int_s = int(s)
++            for i in range(1, int_s):
++                href1 = href.split(".ht")
++                href1 = f'{href1[0]}_{i}.htm'
++
++                if i == 1:
++                    src = child_pag.find(
++                        "div", attrs={"class": "ImageBody"}).find("img").get("src")
++                    task = asyncio.create_task(download(src, n, session))
++                    tasks.append(task)
++                    n += 1
++                else:
++                    async with session.get(href1) as resp1:
++                        pag3 = await resp1.text()
++                    child_pag3 = BeautifulSoup(pag3, 'html.parser')
++
++                    src1 = child_pag3.find(
++                        "div", attrs={"class": "ImageBody"}).find("img").get("src")
++                    task = asyncio.create_task(download(src1, n, session))
++                    tasks.append(task)
++                    n += 1
++
++            '''src = child_pag.find(
++                "div", attrs={"class": "ImageBody"}).find("img").get("src")
++            print(src)
++
++            task = asyncio.create_task(download(src, n, session))
++            tasks.append(task)'''
++
++        await asyncio.wait(tasks)
++
++
++async def download(src, n, session):
++    async with session.get(src) as response:
++        async with aiofiles.open(f"./getpicture/tu_{n}.jpg", mode="wb") as f:
++            await f.write(await response.read())
++
++
++'''async def main():
++    url = 'https://www.umei.cc'
++    result = await downpic(url)
++    return result'''
++
++
++if __name__ == '__main__':
++    url = 'https://www.umei.cc'
++    '''loop = asyncio.new_event_loop()
++    asyncio.set_event_loop(loop)
++    loop.run_until_complete(downpic(url))'''
++    asyncio.run(downpic(url))
++    print("over")
