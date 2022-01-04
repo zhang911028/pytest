@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ec35269-e37c-4c2e-9b9f-e7d15a88f88c" name="Changes" comment=" echo &quot;# python&quot; &gt;&gt; README.md git init git add README.md git commit -m…&#10;&#10;… &quot;first commit&quot; git master -M main git remote add origin https://github.com/zhang911028/pytest.git git push -u origin main" />
+    <list default="true" id="1ec35269-e37c-4c2e-9b9f-e7d15a88f88c" name="Changes" comment=" echo &quot;# python&quot; &gt;&gt; README.md git init git add README.md git commit -m…&#10;&#10;… &quot;first commit&quot; git master -M main git remote add origin https://github.com/zhang911028/pytest.git git push -u origin main">
+      <change beforePath="$PROJECT_DIR$/.idea/pytest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pytest.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +19,7 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -157,6 +161,7 @@
       <workItem from="1640950020154" duration="1040000" />
       <workItem from="1641106633113" duration="3422000" />
       <workItem from="1641257427039" duration="3085000" />
+      <workItem from="1641300425581" duration="1348000" />
     </task>
     <task id="LOCAL-00001" summary=" echo &quot;# python&quot; &gt;&gt; README.md git init git add README.md git commit -m…&#10;&#10;… &quot;first commit&quot; git master -M main git remote add origin https://github.com/zhang911028/python.git git push -u origin main">
       <created>1640154435769</created>
